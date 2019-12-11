@@ -14,7 +14,7 @@ module.exports = {
             for (key in provided_queries) {
                 if (!allowed_queries.includes(key)) delete provided_queries[key]
                 if (key === 'name' || key === 'location') {
-                    provided_queries[key].replace('+', ' ')
+                    provided_queries[key] = provided_queries[key].replace(/\+/g, ' ')
                 }
             }
 
