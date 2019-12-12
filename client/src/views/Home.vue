@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <Nav>Банков Каталог &raquo;</Nav>
+    <Nav link="/catalogue">Банков Каталог &raquo;</Nav>
     <main class="search">
       <div class="search-wrapper">
         <h1 class="heading">Банкомап</h1>
