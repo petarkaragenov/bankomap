@@ -34,6 +34,16 @@ html, body {
     background-attachment: fixed;
 }
 
+.H_ib_content {
+    width: 20rem !important;
+    /* height: 8rem !important; */
+}
+
+.H_ib_body {
+    transform: translateX(50%) !important;
+    right: 2rem !important;
+}
+
 .loading {
     position: absolute;
     top: 50%;

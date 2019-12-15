@@ -1,7 +1,16 @@
 import Vue from 'vue'
 import axios from 'axios'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faPhoneSquareAlt, faAddressCard, faEnvelope, faFax, faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons'
+import { 
+  faPhoneSquareAlt, 
+  faAddressCard, 
+  faEnvelope, 
+  faFax, 
+  faExternalLinkAlt,
+  faHome, 
+  faSearchLocation, 
+  faRoute
+} from '@fortawesome/free-solid-svg-icons'
 import App from './App.vue'
 import router from './router'
 import store from './store' 
@@ -10,7 +19,16 @@ import './assets/fonts/PlovdivDisplay-Light.otf'
 import './assets/fonts/PlovdivSans.otf'
 import './assets/css/style.css'
 
-library.add(faPhoneSquareAlt, faAddressCard, faEnvelope, faFax, faExternalLinkAlt)
+library.add(
+  faPhoneSquareAlt, 
+  faAddressCard, 
+  faEnvelope, 
+  faFax, 
+  faExternalLinkAlt, 
+  faHome, 
+  faSearchLocation, 
+  faRoute
+)
 
 window.axios = axios
 

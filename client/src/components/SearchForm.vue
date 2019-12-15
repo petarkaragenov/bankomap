@@ -1,40 +1,40 @@
 <template>
   <form class="search-form" @submit.prevent="handleSubmit">
         <div class="search-fields">
-        <div class="search-field">
-            <input 
-            type="text" 
-            class="search-input" 
-            placeholder="Населено място..." 
-            v-model="location" 
-            autofocus 
-            @keyup="showSuggestions(location)"
-            ref="locationInput"
-            >
-            <ul class="suggestions" ref="suggestions">
-                <li v-for="(location, i) in matchingLocations" :key="i" @click="selectLocation(location)">{{ location }}</li>
-            </ul>
-        </div>
-        <div class="search-field">
-            <select class="search-input" v-model="name">
-                <option v-for="(bank, i) in orderedBanks" :key="i" :value="bank">{{ bank | capitalize }}</option>
-            </select>
-        </div>
-        <button class="submit" type="submit">Търси</button>
+            <div class="search-field">
+                <input 
+                type="text" 
+                class="search-input" 
+                placeholder="Населено място..." 
+                v-model="location" 
+                autofocus 
+                @keyup="showSuggestions(location)"
+                ref="locationInput"
+                >
+                <ul class="suggestions" ref="suggestions">
+                    <li v-for="(location, i) in matchingLocations" :key="i" @click="selectLocation(location)">{{ location }}</li>
+                </ul>
+            </div>
+            <div class="search-field">
+                <select class="search-input" v-model="name">
+                    <option v-for="(bank, i) in orderedBanks" :key="i" :value="bank">{{ bank | capitalize }}</option>
+                </select>
+            </div>
+            <button class="submit" type="submit">Търси</button>
         </div>
         <div class="search-options">
-        <div class="checkbox-field">
-            <input type="checkbox" value="till_late" id="till_late" v-model="till_late"> 
-            <label for="till_late">Работи след 18:00ч.</label>
-        </div>
-        <div class="checkbox-field">
-            <input type="checkbox" value="saturday" id="saturday" v-model="saturday"> 
-            <label for="saturday">Работи в събота</label>
-        </div>
-        <div class="checkbox-field">
-            <input type="checkbox" value="sunday" id="sunday" v-model="sunday"> 
-            <label for="sunday">Работи в неделя</label>
-        </div>
+            <div class="checkbox-field">
+                <input type="checkbox" value="till_late" id="till_late" v-model="till_late"> 
+                <label for="till_late">Работи след 18:00ч.</label>
+            </div>
+            <div class="checkbox-field">
+                <input type="checkbox" value="saturday" id="saturday" v-model="saturday"> 
+                <label for="saturday">Работи в събота</label>
+            </div>
+            <div class="checkbox-field">
+                <input type="checkbox" value="sunday" id="sunday" v-model="sunday"> 
+                <label for="sunday">Работи в неделя</label>
+            </div>
         </div>
     </form>
 </template>
@@ -47,7 +47,7 @@ import banks from '../assets/data/banks'
 export default {
     data() {
         return {
-            locations,
+            locations: locations.map(location => location.name),
             banks,
             matchingLocations: [],
             sunday: null,
@@ -99,7 +99,13 @@ export default {
                 if (this.sunday) params.sunday = !!this.sunday
                 
                 axios(url, { params })
-                    .then(res => this.$store.dispatch('populateData', res.data))
+                    .then(res => {
+                        this.$store.dispatch('populateData', res.data)
+                        this.$store.dispatch('setLocation', locations
+                            .filter(loc => loc.name === location.replace('+', ' '))
+                        )
+                        this.$router.push({ name: 'office-map' })
+                    })
                     .catch(err => console.log(err))
             }
         }
