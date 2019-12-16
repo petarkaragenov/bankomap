@@ -43,14 +43,14 @@ export default {
     }
 
     .left-panel .office-box {
-        height: 135px;
+        /* height: 150px; */
         padding: 15px 15px 0 20px;
         cursor: pointer;
         transition: .3s;
     }
 
     .office-box .content {
-        height: 100%;
+        min-height: 150px;
         position: relative;
         border-bottom: 1px solid #9D6F84;
         pointer-events: none;

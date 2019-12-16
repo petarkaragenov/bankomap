@@ -83,8 +83,15 @@ export default {
         }, 
         handleSubmit() {
             if (!this.location) {
-                this.$refs.locationInput.classList.add('feedback')
-                this.$refs.locationInput.focus()
+                this.$swal({
+                    title: "Грешка",
+                    text: "Моля изберете населено място!",
+                    icon: "error",
+                    button: "Добре",
+                }).then(() => {
+                    this.$refs.locationInput.classList.add('feedback')
+                    this.$refs.locationInput.focus()
+                })                
                 return
             }
             else {
@@ -100,6 +107,14 @@ export default {
                 
                 axios(url, { params })
                     .then(res => {
+                        if (res.data.offices.length === 0) {
+                            this.$swal({
+                                text: "Няма намерени резултати!",
+                                icon: "warning",
+                                button: "Добре",
+                            })
+                            return
+                        }                       
                         this.$store.dispatch('populateData', res.data)
                         this.$store.dispatch('setLocation', locations
                             .filter(loc => loc.name === location.replace('+', ' '))

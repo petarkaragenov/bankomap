@@ -34,14 +34,27 @@ html, body {
     background-attachment: fixed;
 }
 
-.H_ib_content {
-    width: 20rem !important;
-    /* height: 8rem !important; */
-}
-
 .H_ib_body {
     transform: translateX(50%) !important;
     right: 2rem !important;
+}
+
+.H_ib_content {
+    width: 20rem !important;
+}
+
+.H_ib_content .title {
+    margin-bottom: .5rem;
+    font-size: 1rem;
+}
+
+.H_ib_content .info {
+    margin-bottom: .3rem;
+    font-style: italic;
+}
+
+.H_ib_content .opening-hours {
+    margin-top: .4rem;
 }
 
 .loading {

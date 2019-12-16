@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import axios from 'axios'
+import VueSwal from 'vue-swal'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { 
   faPhoneSquareAlt, 
@@ -18,6 +19,8 @@ import './assets/fonts/PlovdivDisplay-Regular.otf'
 import './assets/fonts/PlovdivDisplay-Light.otf'
 import './assets/fonts/PlovdivSans.otf'
 import './assets/css/style.css'
+
+Vue.use(VueSwal)
 
 library.add(
   faPhoneSquareAlt, 

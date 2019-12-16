@@ -1,10 +1,10 @@
 <template>
     <div class="right-panel">
         <div class="right-panel-item">
-            <a href="">
+            <router-link to="/">
                 <FontAwesomeIcon :icon="['fas', 'home']" />
                 <span class="label">Начало</span>
-            </a>
+            </router-link>
         </div>
         <div class="right-panel-item">
             <a href="">
