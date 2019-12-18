@@ -10,14 +10,13 @@ import {
   faExternalLinkAlt,
   faHome, 
   faSearchLocation, 
-  faRoute
+  faRoute,
+  faTimes
 } from '@fortawesome/free-solid-svg-icons'
 import App from './App.vue'
 import router from './router'
 import store from './store' 
-import './assets/fonts/PlovdivDisplay-Regular.otf'
-import './assets/fonts/PlovdivDisplay-Light.otf'
-import './assets/fonts/PlovdivSans.otf'
+import 'vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css'
 import './assets/css/style.css'
 
 Vue.use(VueSwal)
@@ -30,7 +29,8 @@ library.add(
   faExternalLinkAlt, 
   faHome, 
   faSearchLocation, 
-  faRoute
+  faRoute,
+  faTimes
 )
 
 window.axios = axios

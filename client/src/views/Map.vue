@@ -4,17 +4,18 @@
         <SearchForm />
         <LeftPanel :offices="offices" :showPopup="showPopup" />
         <RightPanel :platform="platform" :onResult="onResult" />
-    </div>
-    
+        <DistancePopup v-if="distance" :distance="distance" @hidePopup="distance = null" />
+    </div>   
 </template>
 
 <script>
 import RightPanel from '../components/RightPanel'
 import LeftPanel from '../components/LeftPanel'
 import SearchForm from '../components/SearchForm'
+import DistancePopup from '../components/DistancePopup'
 export default {
     components: {
-        RightPanel, LeftPanel, SearchForm
+        RightPanel, LeftPanel, SearchForm, DistancePopup
     },
     data() {
         return {
@@ -24,7 +25,8 @@ export default {
             ui: {},
             initialZoom: 12,
             routeLine: null,
-            clusteringLayer: null
+            clusteringLayer: null,
+            distance: null
         }
     },
     computed: {
@@ -38,7 +40,7 @@ export default {
     methods: {
         startClustering(map, data) {
             const clusterSvg = `<svg xmlns="http://www.w3.org/2000/svg" height="50px" width="50px">
-                <circle cx="25px" cy="25px" r="13" fill="#04003D" stroke="#04003D" stroke-width="12" stroke-opacity="0.2" />
+                <circle cx="25px" cy="25px" r="13" fill="#083045" stroke="#083045" stroke-width="12" stroke-opacity="0.2" />
                 <text x="25" y="30" font-size="10pt" font-family="arial" font-weight="bold" text-anchor="middle" fill="white">{label}</text>
             </svg>`
 
@@ -117,7 +119,11 @@ export default {
                 routeShape = route.shape;
                 linestring = new H.geo.LineString();
 
-                console.log(route.summary.distance)
+                if (route.summary.distance < 1000) {
+                    this.distance = route.summary.distance + ' м'
+                } else {
+                    this.distance = (route.summary.distance / 1000).toFixed(2) + ' км'
+                }
             
                 routeShape.forEach(function(point) {
                     const parts = point.split(',');
@@ -130,7 +136,7 @@ export default {
                 const routeOutline = new H.map.Polyline(linestring, {
                     style: {
                         lineWidth: 6,
-                        strokeColor: 'rgba(4,0,61, 0.5)',
+                        strokeColor: 'rgba(8, 48, 69, 0.5)',
                         lineTailCap: 'arrow-tail',
                         lineHeadCap: 'arrow-head'
                     }
@@ -170,7 +176,7 @@ export default {
 
                 endMarker.setStyle({
                     strokeColor: 'white',
-                    fillColor: 'rgba(4,0,61, 0.5)',
+                    fillColor: 'rgba(8, 48, 69, 0.5)',
                     lineWidth: 2
                 })
 
@@ -276,7 +282,7 @@ export default {
     }
 
     .search-form /deep/ .search-fields {
-        border: 10px solid rgba(156, 146, 172, 0.3);
+        border: 10px solid rgba(58, 99, 120, 0.3);
     } 
 
     .search-form /deep/ .search-input {
@@ -293,7 +299,7 @@ export default {
     }
 
     .search-form /deep/ .checkbox-field {
-        background: rgba(156, 146, 172, 1);
+        background: rgba(58, 99, 120, 1);
         font-size: 0.925rem;
         padding: 6px;
         border-radius: 4px;

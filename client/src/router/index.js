@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Catalogue from '../views/Catalogue.vue'
 import Map from '../views/Map.vue'
+import store from '../store/index'
 
 Vue.use(VueRouter)
 
@@ -20,7 +21,14 @@ const routes = [
   {
     path: '/map',
     name: 'office-map',
-    component: Map
+    component: Map,
+    beforeEnter(to, from, next) {
+      if (store.getters.getData) {
+        return next()
+      } else {
+        return next({ name: 'home' })
+      }
+    }
   },
 ]
 

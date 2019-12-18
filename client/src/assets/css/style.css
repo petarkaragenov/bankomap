@@ -1,22 +1,4 @@
-@font-face {
-    font-family: 'Plovdiv Regular';
-    font-weight: normal;
-    src: url('../fonts/PlovdivDisplay-Regular.otf');
-}
-
-@font-face {
-    font-family: 'Plovdiv Light';
-    font-weight: lighter;
-    src: url('../fonts/PlovdivDisplay-Light.otf');
-}
-
-@font-face {
-    font-family: 'Plovdiv Sans';
-    font-weight: lighter;
-    src: url('../fonts/PlovdivSans.otf');
-}
-
-/* General */
+@import url('https://fonts.googleapis.com/css?family=Ubuntu:300,400&display=swap');
 
 *, * > * {
     margin: 0;
@@ -27,9 +9,9 @@
 html, body {
     width: 100%;
     height: 100%;
-    font-family: 'Plovdiv Light';
+    font-family: 'Ubuntu';
     color: white;
-    background-color: rgb(4, 0, 61);
+    background-color: #083045;
     background-image: url('../topography.svg');
     background-attachment: fixed;
 }
@@ -91,7 +73,7 @@ nav a {
     text-decoration: none;
     color: white;
     text-transform: uppercase;
-    font-family: 'Plovdiv Regular';
+    /* font-family: 'Plovdiv Regular'; */
     font-size: 1.25rem;
 }
 
@@ -108,8 +90,6 @@ nav a:hover {
     margin: auto;
 }
 
-/* Home */
-
 .search {
     flex: 1;
     margin-top: 10%;
@@ -117,7 +97,6 @@ nav a:hover {
 }
 
 .search-wrapper .heading {
-    font-family: 'Plovdiv Regular';
     font-size: 4.2rem;
     text-transform: uppercase;
     letter-spacing: 10px;
@@ -127,179 +106,3 @@ nav a:hover {
     font-weight: lighter;
     font-size: 1.23rem;
 }
-
-.search-form {
-    width: 100%;
-    margin: 30px 0;
-}
-
-.search-fields {
-    border: 14px solid rgba(156, 146, 172, 0.1);
-    border-radius: 8px;
-    box-shadow: 0 0 6px rgba(0,0,0,0.5) 0 0 14px rgba(0,0,0,0.3) 0 0 22px rgba(0,0,0,0.1);
-    display: flex;
-}
-
-.search-field {
-    flex: 2.5;
-}
-
-.search-field .suggestions {
-    position: absolute;
-    width: 100%;
-    top: 63px;
-    left: 0;
-    color: black;
-    visibility: hidden;
-    pointer-events: none;
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    background: white;
-}
-
-.suggestions li {
-    padding: 8px;
-    font-size: 1.125rem;
-    border-bottom: 1px solid rgba(0,0,0,0.4);
-    cursor: pointer;
-}
-
-.suggestions li:hover {
-    background-color: rgba(126, 122, 191, 0.8);
-}
-
-.search-input {
-    padding: 16px;
-    font-size: 1.25rem;
-    font-family: 'Plovdiv Light';
-    border: none;
-    outline: none;
-    border-right: 1px solid rgba(0,0,0,0.4);
-    width: 100%;
-}
-
-select.search-input {
-    padding: 15px;
-}
-
-.search-field:first-child {
-    position: relative;
-}
-
-.search-field:first-child .search-input {
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
-    position: relative;
-}
-
-.search-input option {
-    font-size: 1rem;
-}
-
-.search-fields .submit {
-    flex: 1;
-    border: none;
-    outline: none;
-    width: 100%;
-    font-family: 'Plovdiv Regular';
-    font-size: 1.25rem;
-    background: rgb(4, 0, 61);
-    cursor: pointer;
-    color: white;
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
-}
-
-.search-options {
-    display: flex;
-    justify-content: flex-start;
-    margin-top: 20px;
-    margin-left: 30px;
-}
-
-.search-options .checkbox-field {
-    margin-right: 20px;
-    display: flex;
-    align-items: baseline;
-}
-
-.checkbox-field label {
-    margin-left: 8px;
-}
-
-/* Catalogue */
-
-.catalogue {
-    margin: 100px 0 40px;
-    background: white;
-    color: black;
-    box-shadow: 0 0 6px rgba(0,0,0,0.5) 0 0 14px rgba(0,0,0,0.3) 0 0 22px rgba(0,0,0,0.1);
-    width: 100%;
-    font-family: 'Plovdiv Sans';
-    padding: 20px;
-}
-
-.catalogue h1 {
-    font-size: 3.1rem;
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    text-align: center;
-    padding: 10px 0 30px;
-}
-
-.catalogue h2:last-of-type {
-    margin-top: 40px;
-}
-
-.bank {
-    padding: 20px;
-    border-bottom: 1px solid rgba(4, 0, 61, 0.6);
-}
-
-.bank .bank-name {
-    padding: 10px 0;
-}
-
-.bank-row {
-    display: flex;
-}
-
-.bank-row a {
-    text-decoration: none;
-    display: inline-block;
-    padding-bottom: 2px;
-    border-bottom: 1px solid transparent;
-    transition: .3s;
-}
-
-.bank-row a:hover {
-    border-bottom: 1px solid rgba(4, 0, 61, 0.8);
-}
-
-.bank-row .col-left {
-    flex: 1;
-}
-
-.bank-row .col-right {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.bank-row ul li svg {
-    margin-right: 8px;
-}
-
-.col-left ul {
-    list-style-type: none;
-    margin-left: 16px;
-}
-
-.col-left ul li {
-    padding: 6px 0;
-}
-
-
-

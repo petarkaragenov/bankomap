@@ -40,6 +40,25 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+    .catalogue {
+        margin: 100px 0 40px;
+        background: white;
+        color: black;
+        box-shadow: 0 0 6px rgba(0,0,0,0.5) 0 0 14px rgba(0,0,0,0.3) 0 0 22px rgba(0,0,0,0.1);
+        width: 100%;
+        padding: 20px;
+    }
 
+    .catalogue h1 {
+        font-size: 3.1rem;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        text-align: center;
+        padding: 10px 0 30px;
+    }
+
+    .catalogue h2:last-of-type {
+        margin-top: 40px;
+    }
 </style>

@@ -1,23 +1,29 @@
 <template>
     <div class="left-panel">
-        <div 
-            @click="showPopup" 
-            v-for="office in offices" 
-            :key="office._id" 
-            class="office-box" 
-            :data-data="stringify(office)"
-        >
-            <div class="content">
-                <h3 class="title">{{ office.title }}</h3>
-                <p class="address">{{ office.address }}</p>
-                <p class="open">{{ office.open }}</p>
-            </div>
-        </div>              
+        <perfect-scrollbar>
+            <div 
+                @click="showPopup" 
+                v-for="office in offices" 
+                :key="office._id" 
+                class="office-box" 
+                :data-data="stringify(office)"
+            >
+                <div class="content">
+                    <h3 class="title">{{ office.title }}</h3>
+                    <p class="address">{{ office.address }}</p>
+                    <p class="open">{{ office.open }}</p>
+                </div>
+            </div> 
+        </perfect-scrollbar>             
     </div>
 </template>
 
 <script>
+import { PerfectScrollbar } from "vue2-perfect-scrollbar"
 export default {
+    components: {
+        PerfectScrollbar
+    },
     props: ['offices', 'showPopup'],
     methods: {
         stringify(office) {
@@ -27,8 +33,9 @@ export default {
 }
 </script>
 
+<style src="vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css"/>
 <style>
-.left-panel {
+    .left-panel {
         position: absolute;
         height: 95%;
         width: 20%;
@@ -37,7 +44,7 @@ export default {
         top: 2.5%;
         left: 2%;
         bottom: 2.5%;
-        overflow-y: scroll;
+        /* overflow-y: scroll; */
         box-shadow: 0em 0 0.4em rgba(15, 22, 33, 0.6);
         border-radius: 6px;
     }
@@ -77,5 +84,9 @@ export default {
         position: absolute;
         bottom: 18px;
         left: 0;
+    }
+
+    .ps {
+        height: 99%;
     }
 </style>

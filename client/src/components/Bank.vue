@@ -42,6 +42,54 @@ export default {
 </script>
 
 <style scoped>
+    .bank {
+        padding: 20px;
+        border-bottom: 1px solid rgba(8, 48, 69, 0.6);
+    }
+
+    .bank .bank-name {
+        padding: 10px 0;
+    }
+
+    .bank-row {
+        display: flex;
+    }
+
+    .bank-row a {
+        text-decoration: none;
+        display: inline-block;
+        padding-bottom: 2px;
+        border-bottom: 1px solid transparent;
+        transition: .3s;
+    }
+
+    .bank-row a:hover {
+        border-bottom: 1px solid rgba(8, 48, 69, 0.8);
+    }
+
+    .bank-row .col-left {
+        flex: 1;
+    }
+
+    .bank-row .col-right {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .bank-row ul li svg {
+        margin-right: 8px;
+    }
+
+    .col-left ul {
+        list-style-type: none;
+        margin-left: 16px;
+    }
+
+    .col-left ul li {
+        padding: 6px 0;
+    }
     .bank:last-child {
         border-bottom: none;
     }

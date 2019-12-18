@@ -12,7 +12,7 @@
                 ref="locationInput"
                 >
                 <ul class="suggestions" ref="suggestions">
-                    <li v-for="(location, i) in matchingLocations" :key="i" @click="selectLocation(location)">{{ location }}</li>
+                    <li v-for="(location, i) in matchingLocations" :key="i" @click="selectLocation(location)">{{ location | capitalize }}</li>
                 </ul>
             </div>
             <div class="search-field">
@@ -152,6 +152,102 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+    .search-form {
+        width: 100%;
+        margin: 30px 0;
+    }
 
+    .search-fields {
+        border: 14px solid rgba(58, 99, 120, 0.3);
+        border-radius: 8px;
+        box-shadow: 0 0 6px rgba(0,0,0,0.5) 0 0 14px rgba(0,0,0,0.3) 0 0 22px rgba(0,0,0,0.1);
+        display: flex;
+    }
+
+    .search-field {
+        flex: 2.5;
+    }
+
+    .search-field .suggestions {
+        position: absolute;
+        width: 100%;
+        top: 63px;
+        left: 0;
+        color: black;
+        visibility: hidden;
+        pointer-events: none;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        background: white;
+    }
+
+    .suggestions li {
+        padding: 8px;
+        font-size: 1.125rem;
+        border-bottom: 1px solid rgba(0,0,0,0.4);
+        cursor: pointer;
+    }
+
+    .suggestions li:hover {
+        background-color: rgba(58, 99, 120, 0.8);
+    }
+
+    .search-input {
+        padding: 16px;
+        font-size: 1.25rem;
+        border: none;
+        outline: none;
+        border-right: 1px solid rgba(0,0,0,0.4);
+        width: 100%;
+    }
+
+    select.search-input {
+        padding: 15.5px;
+    }
+
+    .search-field:first-child {
+        position: relative;
+    }
+
+    .search-field:first-child .search-input {
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+        position: relative;
+    }
+
+    .search-input option {
+        font-size: 1rem;
+    }
+
+    .search-fields .submit {
+        flex: 1;
+        border: none;
+        outline: none;
+        width: 100%;
+        font-size: 1.25rem;
+        background: #083045;
+        cursor: pointer;
+        color: white;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+    }
+
+    .search-options {
+        display: flex;
+        justify-content: flex-start;
+        margin-top: 20px;
+        margin-left: 30px;
+    }
+
+    .search-options .checkbox-field {
+        margin-right: 20px;
+        display: flex;
+        align-items: baseline;
+    }
+
+    .checkbox-field label {
+        margin-left: 8px;
+    }
 </style>
