@@ -18,7 +18,7 @@
                 
         </div>
         <LeftPanel :offices="offices" :showPopup="showPopup" />
-        <RightPanel />
+        <RightPanel :platform="platform" :onResult="onResult" />
     </div>
     
 </template>
@@ -38,7 +38,9 @@ export default {
             ui: {},
             initialZoom: 12,
             searchCoords: this.$store.getters.getLocation[0].coords,
-            offices: this.$store.getters.getData.offices
+            offices: this.$store.getters.getData.offices,
+            routeLine: null,
+            
         }
     },
     methods: {
@@ -93,6 +95,7 @@ export default {
                         noiseMarker.addEventListener('tap', (e) => {
                             const geo = e.target.getGeometry()
                             const data = e.target.getData().getData()
+                            self.$store.dispatch('setEndWaypoint', `geo!${geo.lat},${geo.lng}`)
                             self.popUp(geo, data)
                         })
                         return noiseMarker;
@@ -103,9 +106,90 @@ export default {
             const clusteringLayer = new H.map.layer.ObjectLayer(clusteredDataProvider);  
             map.addLayer(clusteringLayer);
         },
+        onResult(result) {
+            if (Object.keys(this.map.getObjects()).length > 0) {
+                for (let object of this.map.getObjects()){
+                    if (object.id === 'route'){
+                            this.map.removeObject(object);
+                    }
+                }
+            }
+            var route,
+            routeShape,
+            startPoint,
+            endPoint,
+            linestring;
+            if(result.response.route) {
+                route = result.response.route[0];
+                routeShape = route.shape;
+                linestring = new H.geo.LineString();
+            
+                routeShape.forEach(function(point) {
+                    const parts = point.split(',');
+                    linestring.pushLatLngAlt(parts[0], parts[1]);
+                });
+            
+                startPoint = route.waypoint[0].mappedPosition;
+                endPoint = route.waypoint[1].mappedPosition;
+
+                const routeOutline = new H.map.Polyline(linestring, {
+                    style: {
+                        lineWidth: 6,
+                        strokeColor: 'rgba(4,0,61, 0.5)',
+                        lineTailCap: 'arrow-tail',
+                        lineHeadCap: 'arrow-head'
+                    }
+                });
+                    
+                const routeArrows = new H.map.Polyline(linestring, {
+                    style: {
+                        lineWidth: 6,
+                        fillColor: 'white',
+                        strokeColor: 'rgba(255,255,255,1)',
+                        lineDash: [0, 2],
+                        lineTailCap: 'arrow-tail',
+                        lineHeadCap: 'arrow-head' 
+                    }
+                });
+            
+                const routeLine = new H.map.Group();
+                routeLine.id = 'route'
+                routeLine.addObjects([routeOutline, routeArrows]);
+
+                const startMarkerIcon = new H.map.Icon(require('../assets/marker.svg'), {
+                    size: {
+                        w: 42,
+                        h: 60
+                    }
+                })
+        
+                const startMarker = new H.map.Marker({
+                    lat: startPoint.latitude,
+                    lng: startPoint.longitude
+                }, { icon: startMarkerIcon });
+        
+                const endMarker = new H.map.Circle({
+                    lat: endPoint.latitude,
+                    lng: endPoint.longitude
+                }, 6);
+
+                endMarker.setStyle({
+                    strokeColor: 'white',
+                    fillColor: 'rgba(4,0,61, 0.5)',
+                    lineWidth: 2
+                })
+
+                startMarker.id = 'route'
+                endMarker.id = 'route'
+            
+                this.map.addObjects([routeLine, startMarker, endMarker]);
+
+                this.map.getViewModel().setLookAtData({bounds: routeLine.getBoundingBox()});
+            }
+        },
         centerMap(geo) {
             this.map.setCenter(geo);
-            this.map.setZoom(16);
+            this.map.setZoom(15);
         },
         popUp(coords, data) {
             const geo = { lat: parseFloat(coords.lat), lng: parseFloat(coords.lng) }
@@ -118,6 +202,7 @@ export default {
         },
         showPopup(e) {
             const data = JSON.parse(e.target.getAttribute('data-data'))
+            this.$store.dispatch('setEndWaypoint', `geo!${data.coords.lat},${data.coords.lng}`)
             this.popUp(data.coords, this.setInfoBubbleContent(data))
         },
         setInfoBubbleContent(data) {

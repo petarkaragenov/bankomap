@@ -13,7 +13,7 @@
             </a>
         </div>
         <div class="right-panel-item">
-            <a href="">
+            <a @click.prevent="showRoute">
                 <FontAwesomeIcon :icon="['fas', 'route']" />
                 <span class="label">Маршрут</span>
             </a>
@@ -27,6 +27,35 @@ export default {
     components: {
         FontAwesomeIcon
     },
+    props: ['platform', 'onResult'],
+    methods: {
+        showRoute() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(this.displayLocationInfo, () => {
+                    this.$swal({ icon: 'warning', text: 'Моля разрешете достъп до данните за локация!' })
+                }, { enableHighAccuracy: true });              
+            }
+        },
+        displayLocationInfo(position) {
+            console.log('ketra')
+            const lng = position.coords.longitude;
+            const lat = position.coords.latitude;
+
+            this.$store.dispatch('setStartWaypoint', `geo!${lat},${lng}`)
+
+            if (!this.$store.getters.getRoutingParameters['waypoint1']) {
+                return this.$swal({ icon: 'warning', text: 'Моля изберете офис!' })
+            }
+
+            const routingParameters = this.$store.getters.getRoutingParameters
+            const router = this.platform.getRoutingService();
+
+            router.calculateRoute(routingParameters, this.onResult,
+                function(error) {
+                    alert(error.message);
+                });
+        },
+    }
 }
 </script>
 
