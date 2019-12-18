@@ -12,7 +12,8 @@ export default new Vuex.Store({
       'mode': 'fastest;car',
       'waypoint0': null,
       'waypoint1': null,
-      'representation': 'display'
+      'representation': 'display',
+      'routeAttributes': "summary"
     }
   },
   mutations: {

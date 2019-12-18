@@ -119,7 +119,9 @@ export default {
                         this.$store.dispatch('setLocation', locations
                             .filter(loc => loc.name === location.replace('+', ' '))
                         )
-                        this.$router.push({ name: 'office-map' })
+                        if (this.$route.path === "/") {
+                            this.$router.push({ name: 'office-map' })
+                        }
                     })
                     .catch(err => console.log(err))
             }

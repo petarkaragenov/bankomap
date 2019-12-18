@@ -7,7 +7,7 @@
             </router-link>
         </div>
         <div class="right-panel-item">
-            <a href="">
+            <a @click.prevent="showSearchForm" :class="{ selected: searchMode }">
                 <FontAwesomeIcon :icon="['fas', 'search-location']" />
                 <span class="label">Намери</span>
             </a>
@@ -28,6 +28,11 @@ export default {
         FontAwesomeIcon
     },
     props: ['platform', 'onResult'],
+    data() {
+        return {
+            searchMode: false
+        }
+    },
     methods: {
         showRoute() {
             if (navigator.geolocation) {
@@ -37,7 +42,6 @@ export default {
             }
         },
         displayLocationInfo(position) {
-            console.log('ketra')
             const lng = position.coords.longitude;
             const lat = position.coords.latitude;
 
@@ -55,12 +59,34 @@ export default {
                     alert(error.message);
                 });
         },
+        showSearchForm(e) {
+            const checkboxes = document.querySelectorAll('.checkbox-field')
+            if (this.searchMode) {
+                document.querySelector('.search-form').style.transform = 'translateY(-140%)'
+                checkboxes.forEach(checkbox => {
+                    checkbox.style.transform = 'scale(0)'
+                })
+                this.searchMode = !this.searchMode
+            } else {
+                document.querySelector('.search-form').style.transform = 'translateY(0)'
+                checkboxes.forEach((checkbox, i) => {
+                    setTimeout(() => {
+                        checkbox.style.transform = 'scale(1)'
+                    }, i*400)
+                })
+                this.searchMode = !this.searchMode
+            }
+        }
     }
 }
 </script>
 
 <style>
-.right-panel {
+    .selected {
+        background: black;
+    }
+
+    .right-panel {
         background: rgba(0,0,0,0.5);               
         position: absolute;
         right: 0;
@@ -78,6 +104,7 @@ export default {
         align-items: center;
         padding: 12px;
         transition: .3s;
+        cursor: pointer;
     }
 
     .right-panel-item a:hover {

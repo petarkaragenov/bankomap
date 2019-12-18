@@ -1,22 +1,7 @@
 <template>
     <div>
         <div id="mapContainer" ref="mapContainer"></div>
-        <div class="left-panel">
-            <div 
-                @click="showPopup" 
-                v-for="office in offices" 
-                :key="office._id" 
-                class="office-box" 
-                :data-data="stringify(office)"
-            >
-                <div class="content">
-                    <h3 class="title">{{ office.title }}</h3>
-                    <p class="address">{{ office.address }}</p>
-                    <p class="open">{{ office.open }}</p>
-                </div>
-            </div>
-                
-        </div>
+        <SearchForm />
         <LeftPanel :offices="offices" :showPopup="showPopup" />
         <RightPanel :platform="platform" :onResult="onResult" />
     </div>
@@ -26,9 +11,10 @@
 <script>
 import RightPanel from '../components/RightPanel'
 import LeftPanel from '../components/LeftPanel'
+import SearchForm from '../components/SearchForm'
 export default {
     components: {
-        RightPanel, LeftPanel
+        RightPanel, LeftPanel, SearchForm
     },
     data() {
         return {
@@ -37,10 +23,16 @@ export default {
             apikey: process.env.VUE_APP_HEREAPIKEY,
             ui: {},
             initialZoom: 12,
-            searchCoords: this.$store.getters.getLocation[0].coords,
-            offices: this.$store.getters.getData.offices,
             routeLine: null,
-            
+            clusteringLayer: null
+        }
+    },
+    computed: {
+        offices() {
+            return this.$store.getters.getData.offices
+        },
+        searchCoords() {
+            return this.$store.getters.getLocation[0].coords
         }
     },
     methods: {
@@ -82,7 +74,7 @@ export default {
 
                         clusterMarker.setData(cluster); 
                         clusterMarker.addEventListener('tap', e => {
-                            self.centerMap(e.target.getGeometry())
+                            self.centerMap(e.target.getGeometry(), 15)
                         })
                         return clusterMarker;
                     },
@@ -104,6 +96,7 @@ export default {
             });
         
             const clusteringLayer = new H.map.layer.ObjectLayer(clusteredDataProvider);  
+            this.clusteringLayer = clusteringLayer
             map.addLayer(clusteringLayer);
         },
         onResult(result) {
@@ -123,6 +116,8 @@ export default {
                 route = result.response.route[0];
                 routeShape = route.shape;
                 linestring = new H.geo.LineString();
+
+                console.log(route.summary.distance)
             
                 routeShape.forEach(function(point) {
                     const parts = point.split(',');
@@ -187,13 +182,13 @@ export default {
                 this.map.getViewModel().setLookAtData({bounds: routeLine.getBoundingBox()});
             }
         },
-        centerMap(geo) {
+        centerMap(geo, zoom) {
             this.map.setCenter(geo);
-            this.map.setZoom(15);
+            this.map.setZoom(zoom);
         },
         popUp(coords, data) {
             const geo = { lat: parseFloat(coords.lat), lng: parseFloat(coords.lng) }
-            this.centerMap(geo)
+            this.centerMap(geo, 15)
 
             const bubble =  new H.ui.InfoBubble(coords, { content: data });
 
@@ -256,6 +251,11 @@ export default {
         window.addEventListener('resize', () => {
             this.map.getViewPort().resize(); 
         });
+    },
+    updated() {
+        this.map.removeLayer(this.clusteringLayer)
+        this.startClustering(this.map, this.offices)
+        this.centerMap(this.searchCoords, this.initialZoom)
     }
 }
 </script>
@@ -265,4 +265,40 @@ export default {
         width: 100vw;
         height: 100vh;
     }
+
+    .search-form {
+        position: absolute;
+        left: 30%;
+        top: 0;
+        width: 50%;
+        transform: translateY(-140%);
+        transition: .5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .search-form /deep/ .search-fields {
+        border: 10px solid rgba(156, 146, 172, 0.3);
+    } 
+
+    .search-form /deep/ .search-input {
+        padding: 11px;
+        font-size: 1.075rem;
+    }
+
+    .search-form /deep/ select.search-input {
+        padding: 10px;
+    }
+
+    .search-form /deep/ .search-fields .submit {
+        font-size: 1.075rem;
+    }
+
+    .search-form /deep/ .checkbox-field {
+        background: rgba(156, 146, 172, 1);
+        font-size: 0.925rem;
+        padding: 6px;
+        border-radius: 4px;
+        transform: scale(0);
+        transform-origin: 50% 50%;
+        transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1) .4s;
+    } 
 </style>
