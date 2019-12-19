@@ -14,7 +14,8 @@ export default new Vuex.Store({
       'waypoint1': null,
       'representation': 'display',
       'routeAttributes': "summary"
-    }
+    },
+    leftPanelControls: 'bars'
   },
   mutations: {
     POPULATE(state, data) {
@@ -28,6 +29,9 @@ export default new Vuex.Store({
     },
     SET_END_WAYPOINT(state, waypoint) {
       state.routingParameters['waypoint1'] = waypoint
+    },
+    CHANGE_LEFT_PANEL_CONTROL(state, icon) {
+      state.leftPanelControls = icon
     }
   },
   actions: {
@@ -42,6 +46,9 @@ export default new Vuex.Store({
     },
     setEndWaypoint({ commit }, waypoint) {
       commit('SET_END_WAYPOINT', waypoint)
+    },
+    changeLeftPanelControl({ commit }, icon) {
+      commit('CHANGE_LEFT_PANEL_CONTROL', icon)
     }
   },
   getters: {
@@ -53,6 +60,9 @@ export default new Vuex.Store({
     },
     getRoutingParameters(state) {
       return state.routingParameters
+    },
+    getLeftPanelControl(state) {
+      return state.leftPanelControls
     }
   }
 })

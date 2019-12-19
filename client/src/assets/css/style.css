@@ -9,7 +9,7 @@
 html, body {
     width: 100%;
     height: 100%;
-    font-family: 'Ubuntu';
+    font-family: 'Ubuntu', sans-serif;
     color: white;
     background-color: #083045;
     background-image: url('../topography.svg');
@@ -83,16 +83,15 @@ nav a:hover {
 
 .container {
     min-height: 100vh;
-    width: 100vw;
     display: flex;
     position: relative;
-    width: 80%;
+    width: 80vw;
     margin: auto;
 }
 
 .search {
     flex: 1;
-    margin-top: 10%;
+    margin-top: 15%;
     text-align: center;
 }
 
@@ -105,4 +104,116 @@ nav a:hover {
 .search-wrapper .subheading {
     font-weight: lighter;
     font-size: 1.23rem;
+}
+
+@media (orientation: portrait) {
+    .search {
+        margin-top: 37.5%;
+    }
+}
+
+@media (max-width: 920px) {
+    .H_l_horizontal {
+        display: none !important;
+    }
+    
+    .H_ib_content .title {
+        margin-bottom: .35rem;
+        font-size: .925rem;
+    }
+    
+    .H_ib_content .info {
+        margin-bottom: .15rem;
+        font-style: italic;
+    }
+    
+    .H_ib_content .opening-hours {
+        margin-top: .3rem;
+    }
+    
+    .container {
+        width: 90vw;
+    }
+
+    nav a {
+        font-size: 0.875rem;
+    }
+
+    .search-wrapper .heading {
+        font-size: 3.4rem;
+    }
+
+    .search-wrapper .subheading {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 622px) {
+    .H_ib_content {
+        width: 18rem !important;
+    }
+    
+    .H_ib_content .title {
+        margin-bottom: .35rem;
+        font-size: .85rem;
+    }
+
+    .H_ib_content p {
+        font-size: 0.775rem;
+        line-height: 20px;
+    }
+
+    .feedback {
+        box-shadow: inset 0 0 0 1px red !important;
+    }
+
+    .container {
+        width: 95vw;
+    }
+
+    nav a {
+        font-size: 0.775rem;
+    }
+
+    .logo a {
+        font-size: 1.125rem;
+    }
+
+    .search-wrapper .heading {
+        font-size: 2.6rem;
+    }
+
+    .search-wrapper .subheading {
+        font-size: .875rem;
+    }
+}
+
+@media (max-width: 468px) {
+    .logo a {
+        font-size: 1rem;
+    }
+
+    .H_ib_content {
+        width: 15rem !important;
+    }
+}
+
+@media (max-width: 400px) {
+    nav a {
+        font-size: 0.775rem;
+    }
+
+    .search-wrapper .heading {
+        font-size: 2rem;
+    }
+
+    .search-wrapper .subheading {
+        font-size: .775rem;
+    }
+}
+
+@media (max-width: 320px) {
+    .H_ib_content {
+        width: 12rem !important;
+    }
 }

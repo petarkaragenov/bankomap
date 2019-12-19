@@ -172,7 +172,7 @@ export default {
     .search-field .suggestions {
         position: absolute;
         width: 100%;
-        top: 63px;
+        top: 56px;
         left: 0;
         color: black;
         visibility: hidden;
@@ -249,5 +249,105 @@ export default {
 
     .checkbox-field label {
         margin-left: 8px;
+    }
+
+    @media (max-width: 920px) {
+        .search-fields {
+            border-width: 10px;
+        }
+
+        .search-field .suggestions {
+            top: 43px;
+        }
+
+        .search-input {
+            padding: 12px;
+            font-size: 1rem;
+            border: none;
+            outline: none;
+            border-right: 1px solid rgba(0,0,0,0.4);
+            width: 100%;
+        }
+
+        select.search-input {
+            padding: 11.5px;
+        }
+
+        .search-fields .submit {
+            font-size: 1rem;
+        }
+
+        .search-options {
+            margin-left: 15px;           
+        }
+
+        .checkbox-field label {
+            font-size: .875rem;
+        }
+    }
+
+    @media (max-width: 622px) {
+        .search-fields {
+            border-width: 6px;
+        }
+
+        .search-field .suggestions {
+            top: 33px;
+        }
+
+        .suggestions li {
+            font-size: .875rem;
+        }
+
+        .search-input {
+            padding: 8px;
+            font-size: .875rem;
+            border: none;
+            outline: none;
+            border-right: 1px solid rgba(0,0,0,0.4);
+            width: 100%;
+        }
+
+        select.search-input {
+            padding: 7px;
+        }
+
+        .search-fields .submit {
+            font-size: .875rem;
+        }
+
+        .search-options {
+            margin-left: 10px;           
+        }
+
+        .checkbox-field label {
+            font-size: .775rem;
+        }
+    }
+
+    @media (max-width: 468px) {
+        .search-options {
+            display: flex;
+            flex-direction: column;
+            margin-top: 10px;
+            margin-left: 20px;
+        }
+
+        .search-options .checkbox-field {
+            padding: 5px 0;
+        }
+    }
+
+    @media (max-width: 400px) {
+        .search-fields {
+            border-width: 2px;
+        }
+        .search-form {
+            margin: 15px 0;
+        }
+
+        .search-options .checkbox-field {
+            padding: 2px 0;
+        }
     }
 </style>

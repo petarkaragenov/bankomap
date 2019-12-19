@@ -43,11 +43,34 @@ export default {
     }
 
     .distance-popup .controls {
-        padding: 5px 15px 5px 15px;
+        padding: 5px 15px;
     }
 
     .fa-times {
         cursor: pointer;
         color: #3F454D !important;
+    }
+
+    @media (max-width: 920px) {
+        .distance-popup {
+            top: 86%;
+            left: 5%;
+        }
+    }
+
+    @media (max-width: 468px) {
+        .distance-popup {
+            top: 88%;
+            width: 12.5rem;
+        }
+
+        .distance-popup .content {
+            font-size: 0.775rem;
+            padding: 3px 5px;
+        }
+
+        .distance-popup .controls {
+            padding: 3px 10px;
+        }
     }
 </style>

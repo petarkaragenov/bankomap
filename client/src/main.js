@@ -11,7 +11,8 @@ import {
   faHome, 
   faSearchLocation, 
   faRoute,
-  faTimes
+  faTimes,
+  faBars
 } from '@fortawesome/free-solid-svg-icons'
 import App from './App.vue'
 import router from './router'
@@ -30,7 +31,8 @@ library.add(
   faHome, 
   faSearchLocation, 
   faRoute,
-  faTimes
+  faTimes,
+  faBars
 )
 
 window.axios = axios

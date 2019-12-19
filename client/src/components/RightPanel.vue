@@ -95,7 +95,6 @@ export default {
     }
 
     .right-panel-item a {
-        padding: 0;
         margin: 0;
         display: flex;
         flex-direction: column; 
@@ -119,5 +118,15 @@ export default {
 
     .right-panel-item a .fas {
         color: white !important;
+    }
+
+    @media (max-width: 468px) {
+        .right-panel-item a {
+            padding: 6px 4px;
+        }
+
+        .right-panel-item a .label {
+            font-size: .5rem;
+        }
     }
 </style>

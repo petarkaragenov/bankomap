@@ -93,4 +93,50 @@ export default {
     .bank:last-child {
         border-bottom: none;
     }
+
+    @media (max-width: 920px) {
+        .bank .bank-name {
+            font-size: 1rem;
+        }
+
+        .bank .bank-row {
+            font-size: .925rem;
+        }
+
+        .col-left ul li {
+            padding: 3px 0;
+        }
+    }
+
+    @media (max-width: 743px) {
+        .bank-row {
+            flex-direction: column;
+        }
+
+        .col-right {
+            display: block !important;
+            margin-left: 16px;
+            margin-top: 15px;
+        }
+    }
+
+    @media (max-width: 622px) {
+        .bank {
+            padding: 10px;
+        }
+    }
+
+    @media (max-width: 400px) {
+        .bank .bank-name {
+            font-size: .925rem;
+        }
+
+        .bank .bank-row {
+            font-size: .875rem;
+        }
+
+        .col-right, .col-left ul {
+            margin-left: 6px;
+        }
+    }
 </style>

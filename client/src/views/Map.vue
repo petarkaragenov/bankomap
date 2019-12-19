@@ -2,9 +2,15 @@
     <div>
         <div id="mapContainer" ref="mapContainer"></div>
         <SearchForm />
-        <LeftPanel :offices="offices" :showPopup="showPopup" />
+        <LeftPanel
+            :offices="offices" 
+            :showPopup="showPopup" 
+            @showOverlay="showOverlay" 
+            @hideOverlay="hideOverlay" 
+        />
         <RightPanel :platform="platform" :onResult="onResult" />
         <DistancePopup v-if="distance" :distance="distance" @hidePopup="distance = null" />
+        <div class="map-overlay" ref="overlay"></div>
     </div>   
 </template>
 
@@ -230,6 +236,12 @@ export default {
         },
         stringify(office) {
             return JSON.stringify(office)
+        },
+        showOverlay() {
+            this.$refs.overlay.style.opacity = '.7'
+        },
+        hideOverlay() {
+            this.$refs.overlay.style.opacity = 0
         }
     },
     created() {  
@@ -254,7 +266,20 @@ export default {
         this.ui = H.ui.UI.createDefault(this.map, defaultLayers);
         this.startClustering(this.map, this.offices)
 
-        window.addEventListener('resize', () => {
+        window.addEventListener('resize', (e) => {
+            const leftPanel = document.querySelector('.left-panel')
+            const leftPanelControls = document.querySelector('.left-panel-controls')
+
+            if (e.target.innerWidth > 920) {
+                if (leftPanel.style.transform) {
+                    leftPanel.style.removeProperty('transform')
+                } 
+                else if (this.$refs.overlay.style.opacity = '.7') {
+                    this.$refs.overlay.style.opacity = 0
+                    leftPanelControls.style.color = '#3F454D'
+                    this.$store.dispatch('changeLeftPanelControl', 'bars')
+                }                        
+            }
             this.map.getViewPort().resize(); 
         });
     },
@@ -274,28 +299,38 @@ export default {
 
     .search-form {
         position: absolute;
+        z-index: 300;
         left: 30%;
         top: 0;
-        width: 50%;
+        width: 60%;
         transform: translateY(-140%);
         transition: .5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
     .search-form /deep/ .search-fields {
         border: 10px solid rgba(58, 99, 120, 0.3);
+        flex-wrap: wrap;
     } 
+
+    .search-form /deep/ .search-field {
+        min-width: 160px;
+    }
 
     .search-form /deep/ .search-input {
         padding: 11px;
         font-size: 1.075rem;
+        flex-shrink: 4;
     }
 
     .search-form /deep/ select.search-input {
         padding: 10px;
+        flex-shrink: 1;
     }
 
     .search-form /deep/ .search-fields .submit {
         font-size: 1.075rem;
+        min-width: 60px;
+        padding: 10px;
     }
 
     .search-form /deep/ .checkbox-field {
@@ -307,4 +342,92 @@ export default {
         transform-origin: 50% 50%;
         transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1) .4s;
     } 
+
+    .search-form /deep/ .search-options {
+        margin-left: 15px;
+    }
+
+    .map-overlay {
+        background: rgb(0,0,0);
+        opacity: 0;
+        width: 100vw;
+        height: 100vh;
+        position: absolute;
+        z-index: 350;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        transition: .4s;
+    }
+
+    @media (max-width: 920px) {
+        .search-form {
+            width: 80%;
+            left: 10%;
+        }
+    }
+
+    @media (max-width: 734px) {
+        .search-form {
+            width: 88%;
+            left: 6%;
+            top: 12px;
+        }
+    }
+
+    @media (max-width: 622px) {
+        .search-form /deep/ .search-fields {
+            border-width: 6px;
+        } 
+
+        .search-form /deep/ .search-input {
+            padding: 8px;
+            font-size: 1rem;
+        }
+
+        .search-form /deep/ select.search-input {
+            padding: 7px;
+        }
+
+        .search-form /deep/ .search-fields .submit {
+            font-size: 1rem;
+        }
+
+        .search-form /deep/ .search-options {
+            margin-top: 10px;
+        }
+    }
+
+    @media (max-width: 550px) {
+        .search-form {
+            top: 20px;
+        }
+
+        .search-form /deep/ .search-fields {
+            border-width: 4px;
+            border-radius: 2px;
+        } 
+
+        .search-form /deep/ .search-options {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .search-form /deep/ .checkbox-field {
+            padding: 8px;
+            margin-bottom: 4px;
+        }
+    }
+
+    @media (max-width: 400px) {
+        .search-form /deep/ .search-fields {
+            flex-direction: column;
+            border-width: 2px;
+        }
+
+        .search-form /deep/ .search-input:first-of-type {
+            border: none;
+            border-bottom: 1px solid rgba(0,0,0,0.4);
+        }
+    }
 </style>

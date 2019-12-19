@@ -61,4 +61,52 @@ export default {
     .catalogue h2:last-of-type {
         margin-top: 40px;
     }
+
+    @media (max-width: 920px) {
+        .catalogue {
+            margin-top: 70px;
+        }
+
+        .catalogue h1 {
+            font-size: 2.6rem;
+        }
+
+        .catalogue h2 {
+            font-size: 1.25rem;
+        }
+    }
+
+    @media (max-width: 622px) {
+        .catalogue {
+            margin-top: 70px;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+
+        .catalogue h1 {
+            font-size: 2rem;
+        }
+
+        .catalogue h2 {
+            font-size: 1.125rem;
+        }
+    }
+
+    @media (max-width: 468px) {
+        .catalogue {
+            margin-top: 60px;
+            margin-bottom: 2px;
+        }
+    }
+
+    @media (max-width: 400px) {
+        .catalogue h1 {
+            font-size: 1.75rem;
+            letter-spacing: 1px;
+        }
+
+        .catalogue h2 {
+            font-size: 1rem;
+        }
+    }
 </style>
