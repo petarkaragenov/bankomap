@@ -9,7 +9,3 @@ export default {
   props: ['link']
 }
 </script>
-
-<style>
-
-</style>

@@ -1,15 +1,15 @@
 <template>
-  <form class="search-form" @submit.prevent="handleSubmit">
+    <form class="search-form" @submit.prevent="handleSubmit" role="search">
         <div class="search-fields">
             <div class="search-field">
                 <input 
-                type="text" 
-                class="search-input" 
-                placeholder="Населено място..." 
-                v-model="location" 
-                autofocus 
-                @keyup="showSuggestions(location)"
-                ref="locationInput"
+                    type="search" 
+                    class="search-input" 
+                    placeholder="Населено място..." 
+                    v-model="location" 
+                    autofocus 
+                    @keyup="showSuggestions(location)"
+                    ref="locationInput"
                 >
                 <ul class="suggestions" ref="suggestions">
                     <li v-for="(location, i) in matchingLocations" :key="i" @click="selectLocation(location)">{{ location | capitalize }}</li>
@@ -153,7 +153,9 @@ export default {
 </script>
 
 <style scoped>
-    .search-form {
+    /* prefixed by https://autoprefixer.github.io (PostCSS: v7.0.23, autoprefixer: v9.7.3) */
+
+.search-form {
         width: 100%;
         margin: 30px 0;
     }
@@ -161,12 +163,17 @@ export default {
     .search-fields {
         border: 14px solid rgba(58, 99, 120, 0.3);
         border-radius: 8px;
-        box-shadow: 0 0 6px rgba(0,0,0,0.5) 0 0 14px rgba(0,0,0,0.3) 0 0 22px rgba(0,0,0,0.1);
+        -webkit-box-shadow: 0 0 6px rgba(0,0,0,0.5) 0 0 14px rgba(0,0,0,0.3) 0 0 22px rgba(0,0,0,0.1);
+                box-shadow: 0 0 6px rgba(0,0,0,0.5) 0 0 14px rgba(0,0,0,0.3) 0 0 22px rgba(0,0,0,0.1);
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
     }
 
     .search-field {
-        flex: 2.5;
+        -webkit-box-flex: 2.5;
+            -ms-flex: 2.5;
+                flex: 2.5;
     }
 
     .search-field .suggestions {
@@ -201,10 +208,8 @@ export default {
         outline: none;
         border-right: 1px solid rgba(0,0,0,0.4);
         width: 100%;
-    }
-
-    select.search-input {
-        padding: 15.5px;
+        box-sizing: border-box;
+        height: calc(1.25rem + 33px);
     }
 
     .search-field:first-child {
@@ -222,7 +227,9 @@ export default {
     }
 
     .search-fields .submit {
-        flex: 1;
+        -webkit-box-flex: 1;
+            -ms-flex: 1;
+                flex: 1;
         border: none;
         outline: none;
         width: 100%;
@@ -235,16 +242,24 @@ export default {
     }
 
     .search-options {
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
-        justify-content: flex-start;
+        -webkit-box-pack: start;
+            -ms-flex-pack: start;
+                justify-content: flex-start;
         margin-top: 20px;
         margin-left: 30px;
     }
 
     .search-options .checkbox-field {
         margin-right: 20px;
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
-        align-items: baseline;
+        -webkit-box-align: baseline;
+            -ms-flex-align: baseline;
+                align-items: baseline;
     }
 
     .checkbox-field label {
@@ -267,10 +282,7 @@ export default {
             outline: none;
             border-right: 1px solid rgba(0,0,0,0.4);
             width: 100%;
-        }
-
-        select.search-input {
-            padding: 11.5px;
+            height: calc(1rem + 25px);
         }
 
         .search-fields .submit {
@@ -306,10 +318,7 @@ export default {
             outline: none;
             border-right: 1px solid rgba(0,0,0,0.4);
             width: 100%;
-        }
-
-        select.search-input {
-            padding: 7px;
+            height: calc(.875rem + 17px);
         }
 
         .search-fields .submit {
@@ -327,8 +336,13 @@ export default {
 
     @media (max-width: 468px) {
         .search-options {
+            display: -webkit-box;
+            display: -ms-flexbox;
             display: flex;
-            flex-direction: column;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+                -ms-flex-direction: column;
+                    flex-direction: column;
             margin-top: 10px;
             margin-left: 20px;
         }

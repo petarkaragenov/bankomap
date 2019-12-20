@@ -292,7 +292,9 @@ export default {
 </script>
 
 <style scoped>
-    #mapContainer {
+    /* prefixed by https://autoprefixer.github.io (PostCSS: v7.0.23, autoprefixer: v9.7.3) */
+
+#mapContainer {
         width: 100vw;
         height: 100vh;
     }
@@ -303,13 +305,18 @@ export default {
         left: 30%;
         top: 0;
         width: 60%;
-        transform: translateY(-140%);
+        -webkit-transform: translateY(-140%);
+            -ms-transform: translateY(-140%);
+                transform: translateY(-140%);
+        -webkit-transition: .5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        -o-transition: .5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         transition: .5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
     .search-form /deep/ .search-fields {
         border: 10px solid rgba(58, 99, 120, 0.3);
-        flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
     } 
 
     .search-form /deep/ .search-field {
@@ -319,18 +326,13 @@ export default {
     .search-form /deep/ .search-input {
         padding: 11px;
         font-size: 1.075rem;
-        flex-shrink: 4;
-    }
-
-    .search-form /deep/ select.search-input {
-        padding: 10px;
-        flex-shrink: 1;
+        height: calc(1.075rem + 23px);
     }
 
     .search-form /deep/ .search-fields .submit {
         font-size: 1.075rem;
         min-width: 60px;
-        padding: 10px;
+        padding: 9px;
     }
 
     .search-form /deep/ .checkbox-field {
@@ -338,8 +340,14 @@ export default {
         font-size: 0.925rem;
         padding: 6px;
         border-radius: 4px;
-        transform: scale(0);
-        transform-origin: 50% 50%;
+        -webkit-transform: scale(0);
+            -ms-transform: scale(0);
+                transform: scale(0);
+        -webkit-transform-origin: 50% 50%;
+            -ms-transform-origin: 50% 50%;
+                transform-origin: 50% 50%;
+        -webkit-transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1) .4s;
+        -o-transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1) .4s;
         transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1) .4s;
     } 
 
@@ -357,6 +365,8 @@ export default {
         top: 0;
         left: 0;
         pointer-events: none;
+        -webkit-transition: .4s;
+        -o-transition: .4s;
         transition: .4s;
     }
 
@@ -383,14 +393,12 @@ export default {
         .search-form /deep/ .search-input {
             padding: 8px;
             font-size: 1rem;
-        }
-
-        .search-form /deep/ select.search-input {
-            padding: 7px;
+            height: calc(1rem + 17px);
         }
 
         .search-form /deep/ .search-fields .submit {
             font-size: 1rem;
+            padding: 8px;
         }
 
         .search-form /deep/ .search-options {
@@ -409,8 +417,13 @@ export default {
         } 
 
         .search-form /deep/ .search-options {
+            display: -webkit-box;
+            display: -ms-flexbox;
             display: flex;
-            flex-direction: column;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+                -ms-flex-direction: column;
+                    flex-direction: column;
         }
 
         .search-form /deep/ .checkbox-field {
@@ -421,7 +434,10 @@ export default {
 
     @media (max-width: 400px) {
         .search-form /deep/ .search-fields {
-            flex-direction: column;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+                -ms-flex-direction: column;
+                    flex-direction: column;
             border-width: 2px;
         }
 

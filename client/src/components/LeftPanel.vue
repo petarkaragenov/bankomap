@@ -1,5 +1,5 @@
 <template>
-    <div class="left-panel" ref="leftPanel">
+    <aside class="left-panel" ref="leftPanel">
         <perfect-scrollbar>
             <div 
                 @click="showPopup" 
@@ -22,7 +22,7 @@
                 @click="showLeftPanel" 
             />
         </div>          
-    </div>
+    </aside>
 </template>
 
 <script>
@@ -70,7 +70,9 @@ export default {
 
 <style src="vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css"/>
 <style>
-    .left-panel {
+    /* prefixed by https://autoprefixer.github.io (PostCSS: v7.0.23, autoprefixer: v9.7.3) */
+
+.left-panel {
         position: absolute;
         height: 95%;
         width: 20%;
@@ -79,9 +81,11 @@ export default {
         top: 2.5%;
         left: 2%;
         bottom: 2.5%;
-        /* overflow-y: scroll; */
-        box-shadow: 0em 0 0.4em rgba(15, 22, 33, 0.6);
+        -webkit-box-shadow: 0em 0 0.4em rgba(15, 22, 33, 0.6);
+                box-shadow: 0em 0 0.4em rgba(15, 22, 33, 0.6);
         border-radius: 6px;
+        -webkit-transition: .4s;
+        -o-transition: .4s;
         transition: .4s;
     }
 
@@ -92,6 +96,8 @@ export default {
     .left-panel .office-box {
         padding: 15px 15px 0 20px;
         cursor: pointer;
+        -webkit-transition: .3s;
+        -o-transition: .3s;
         transition: .3s;
     }
 
@@ -143,7 +149,9 @@ export default {
         .left-panel {
             z-index: 400;
             width: 30%;
-            transform: translateX(calc(-100% - 5px));
+            -webkit-transform: translateX(calc(-100% - 5px));
+                -ms-transform: translateX(calc(-100% - 5px));
+                    transform: translateX(calc(-100% - 5px));
         }
 
         .left-panel .left-panel-controls {
@@ -154,6 +162,8 @@ export default {
             left: calc(100% + 15px);
             color: #3F454D;
             cursor: pointer;
+            -webkit-transition: .4s;
+            -o-transition: .4s;
             transition: .4s;
         }
     }

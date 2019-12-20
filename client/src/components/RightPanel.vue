@@ -1,24 +1,33 @@
 <template>
-    <div class="right-panel">
+    <nav class="right-panel" role="navigation">
         <div class="right-panel-item">
-            <router-link to="/">
+            <router-link to="/" title="Върни се към Начало">
                 <FontAwesomeIcon :icon="['fas', 'home']" />
                 <span class="label">Начало</span>
             </router-link>
         </div>
         <div class="right-panel-item">
-            <a @click.prevent="showSearchForm" :class="{ selected: searchMode }">
+            <a 
+                @click.prevent="showSearchForm" 
+                :class="{ selected: searchMode }" 
+                title="Покажи поле за търсене"
+                role="button"
+            >
                 <FontAwesomeIcon :icon="['fas', 'search-location']" />
                 <span class="label">Намери</span>
             </a>
         </div>
         <div class="right-panel-item">
-            <a @click.prevent="showRoute">
+            <a 
+                @click.prevent="showRoute" 
+                title="Покажи маршрут"
+                role="button" 
+            >
                 <FontAwesomeIcon :icon="['fas', 'route']" />
                 <span class="label">Маршрут</span>
             </a>
         </div>
-    </div>
+    </nav>
 </template>
 
 <script>
@@ -82,7 +91,9 @@ export default {
 </script>
 
 <style>
-    .selected {
+    /* prefixed by https://autoprefixer.github.io (PostCSS: v7.0.23, autoprefixer: v9.7.3) */
+
+.selected {
         background: black;
     }
 
@@ -91,17 +102,28 @@ export default {
         position: absolute;
         right: 0;
         top: 50%;
-        transform: translateY(-50%);
+        -webkit-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+                transform: translateY(-50%);
     }
 
     .right-panel-item a {
         margin: 0;
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
-        flex-direction: column; 
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column; 
         text-decoration: none;
         color: white;
-        align-items: center;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
         padding: 12px;
+        -webkit-transition: .3s;
+        -o-transition: .3s;
         transition: .3s;
         cursor: pointer;
     }

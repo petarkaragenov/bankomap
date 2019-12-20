@@ -20,7 +20,9 @@ export default {
 </script>
 
 <style scoped>
-    .distance-popup {
+    /* prefixed by https://autoprefixer.github.io (PostCSS: v7.0.23, autoprefixer: v9.7.3) */
+
+.distance-popup {
         color: #3F454D;
         background: white;
         width: 15rem;
@@ -29,16 +31,21 @@ export default {
         position: absolute;
         top: 40px;
         right: 40px;
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
         z-index: 200;
-        box-shadow: 0em 0 0.4em rgba(56, 56, 56, 0.6);
+        -webkit-box-shadow: 0em 0 0.4em rgba(56, 56, 56, 0.6);
+                box-shadow: 0em 0 0.4em rgba(56, 56, 56, 0.6);
         border-radius: 8px;
     }
 
     .distance-popup .content {
         padding: 5px 10px;
         border-right: 1px solid rgba(0,0,0,0.3);
-        flex: 1;
+        -webkit-box-flex: 1;
+            -ms-flex: 1;
+                flex: 1;
         font-size: 0.875rem;
     }
 
